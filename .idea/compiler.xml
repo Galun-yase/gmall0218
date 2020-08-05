@@ -8,11 +8,13 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="gmall-common-util" />
+        <module name="gmall-manage-web" />
+        <module name="gmall-manage-service" />
         <module name="gmall-bean" />
-        <module name="gmall-web-util" />
         <module name="gmall-order-web" />
-        <module name="gmall-interface" />
         <module name="gmall-user-manage" />
+        <module name="gmall-interface" />
+        <module name="gmall-web-util" />
         <module name="gmall-service-util" />
       </profile>
     </annotationProcessing>
@@ -20,6 +22,8 @@
       <module name="gmall-bean" target="1.8" />
       <module name="gmall-common-util" target="1.8" />
       <module name="gmall-interface" target="1.8" />
+      <module name="gmall-manage-service" target="1.8" />
+      <module name="gmall-manage-web" target="1.8" />
       <module name="gmall-order-web" target="1.8" />
       <module name="gmall-parent" target="1.8" />
       <module name="gmall-service-util" target="1.8" />
@@ -29,6 +33,8 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="gmall-manage-service" options="" />
+      <module name="gmall-manage-web" options="" />
       <module name="gmall-order-web" options="" />
       <module name="gmall-user-manage" options="" />
     </option>
