@@ -6,6 +6,7 @@ import com.atguigu.gmall0218.bean.BaseAttrValue;
 import com.atguigu.gmall0218.bean.BaseCatalog1;
 import com.atguigu.gmall0218.bean.BaseCatalog2;
 import com.atguigu.gmall0218.bean.BaseCatalog3;
+import com.atguigu.gmall0218.bean.BaseSaleAttr;
 import com.atguigu.gmall0218.service.ManageService;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -58,7 +59,11 @@ public class ManageController {
         BaseAttrInfo baseAttrInfo = manageService.getAttrInfo(attrId);
         // 返回平台属性中的平台属性值集合baseAttrInfo.getAttrValueList();
         return baseAttrInfo.getAttrValueList();
+    }
 
+    @RequestMapping("baseSaleAttrList")
+    public List<BaseSaleAttr> baseSaleAttrList() {
+        return manageService.getBaseSaleAttrList();
     }
 
 }

@@ -6,11 +6,21 @@ import com.atguigu.gmall0218.bean.BaseAttrValue;
 import com.atguigu.gmall0218.bean.BaseCatalog1;
 import com.atguigu.gmall0218.bean.BaseCatalog2;
 import com.atguigu.gmall0218.bean.BaseCatalog3;
+import com.atguigu.gmall0218.bean.BaseSaleAttr;
+import com.atguigu.gmall0218.bean.SpuImage;
+import com.atguigu.gmall0218.bean.SpuInfo;
+import com.atguigu.gmall0218.bean.SpuSaleAttr;
+import com.atguigu.gmall0218.bean.SpuSaleAttrValue;
 import com.atguigu.gmall0218.manage.mapper.BaseAttrInfoMapper;
 import com.atguigu.gmall0218.manage.mapper.BaseAttrValueMapper;
 import com.atguigu.gmall0218.manage.mapper.BaseCatalog1Mapper;
 import com.atguigu.gmall0218.manage.mapper.BaseCatalog2Mapper;
 import com.atguigu.gmall0218.manage.mapper.BaseCatalog3Mapper;
+import com.atguigu.gmall0218.manage.mapper.BaseSaleAttrMapper;
+import com.atguigu.gmall0218.manage.mapper.SpuImageMapper;
+import com.atguigu.gmall0218.manage.mapper.SpuInfoMapper;
+import com.atguigu.gmall0218.manage.mapper.SpuSaleAttrMapper;
+import com.atguigu.gmall0218.manage.mapper.SpuSaleAttrValueMapper;
 import com.atguigu.gmall0218.service.ManageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -34,6 +44,20 @@ public class ManageServiceImpl implements ManageService {
 
     @Autowired
     private BaseAttrValueMapper baseAttrValueMapper;
+
+    @Autowired
+    private SpuInfoMapper spuInfoMapper;
+
+    @Autowired
+    private BaseSaleAttrMapper baseSaleAttrMapper;
+
+    @Autowired
+    private SpuImageMapper spuImageMapper;
+    @Autowired
+    private SpuSaleAttrMapper spuSaleAttrMapper;
+    @Autowired
+    private SpuSaleAttrValueMapper spuSaleAttrValueMapper;
+
 
     @Override
     public List<BaseCatalog1> getCatalog1() {
@@ -116,5 +140,51 @@ public class ManageServiceImpl implements ManageService {
 
         baseAttrInfo.setAttrValueList(baseAttrValueList);
         return baseAttrInfo;
+    }
+
+    @Override
+    public List<SpuInfo> getSpuInfoList(SpuInfo spuInfo) {
+        return spuInfoMapper.select(spuInfo);
+    }
+
+    @Override
+    public List<BaseSaleAttr> getBaseSaleAttrList() {
+        return baseSaleAttrMapper.selectAll();
+    }
+
+    @Transactional
+    @Override
+    public void saveSpuInfo(SpuInfo spuInfo) {
+        // 保存数据
+        //        spuInfo
+        //        spuImage
+        //        spuSaleAttr
+        //        spuSaleAttrValue
+        spuInfoMapper.insertSelective(spuInfo);
+
+        List<SpuImage> spuImageList = spuInfo.getSpuImageList();
+        if (spuImageList != null && spuImageList.size() > 0) {
+            for (SpuImage spuImage : spuImageList) {
+                spuImage.setSpuId(spuInfo.getId());
+                spuImageMapper.insertSelective(spuImage);
+            }
+        }
+
+        List<SpuSaleAttr> spuSaleAttrList = spuInfo.getSpuSaleAttrList();
+        if (spuSaleAttrList != null && spuSaleAttrList.size() > 0) {
+            for (SpuSaleAttr spuSaleAttr : spuSaleAttrList) {
+                spuSaleAttr.setSpuId(spuInfo.getId());
+                spuSaleAttrMapper.insertSelective(spuSaleAttr);
+
+                // spuSaleAttrValue
+                List<SpuSaleAttrValue> spuSaleAttrValueList = spuSaleAttr.getSpuSaleAttrValueList();
+                if (spuSaleAttrValueList != null && spuSaleAttrValueList.size() > 0) {
+                    for (SpuSaleAttrValue spuSaleAttrValue : spuSaleAttrValueList) {
+                        spuSaleAttrValue.setSpuId(spuInfo.getId());
+                        spuSaleAttrValueMapper.insertSelective(spuSaleAttrValue);
+                    }
+                }
+            }
+        }
     }
 }

@@ -5,6 +5,8 @@ import com.atguigu.gmall0218.bean.BaseAttrValue;
 import com.atguigu.gmall0218.bean.BaseCatalog1;
 import com.atguigu.gmall0218.bean.BaseCatalog2;
 import com.atguigu.gmall0218.bean.BaseCatalog3;
+import com.atguigu.gmall0218.bean.BaseSaleAttr;
+import com.atguigu.gmall0218.bean.SpuInfo;
 
 import java.util.List;
 
@@ -61,5 +63,20 @@ public interface ManageService {
      * description: 根据平台属性Id,查询平台属性对象
      */
     BaseAttrInfo getAttrInfo(String attrId);
+
+    /**
+     * description: 根据spuinfo信息查询spuinfo列表
+     */
+    List<SpuInfo> getSpuInfoList(SpuInfo spuInfo);
+
+    /**
+     * 获取所有的销售属性数据
+     */
+    List<BaseSaleAttr> getBaseSaleAttrList();
+
+    /**
+     * 保存spuInfo
+     */
+    void saveSpuInfo(SpuInfo spuInfo);
 
 }
