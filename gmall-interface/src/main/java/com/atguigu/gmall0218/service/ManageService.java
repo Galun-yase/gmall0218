@@ -6,7 +6,10 @@ import com.atguigu.gmall0218.bean.BaseCatalog1;
 import com.atguigu.gmall0218.bean.BaseCatalog2;
 import com.atguigu.gmall0218.bean.BaseCatalog3;
 import com.atguigu.gmall0218.bean.BaseSaleAttr;
+import com.atguigu.gmall0218.bean.SkuInfo;
+import com.atguigu.gmall0218.bean.SpuImage;
 import com.atguigu.gmall0218.bean.SpuInfo;
+import com.atguigu.gmall0218.bean.SpuSaleAttr;
 
 import java.util.List;
 
@@ -78,5 +81,20 @@ public interface ManageService {
      * 保存spuInfo
      */
     void saveSpuInfo(SpuInfo spuInfo);
+
+    /**
+     * description: 获取spuImage
+     */
+    List<SpuImage> getSpuImageList(SpuImage spuImage);
+
+    /**
+     * description: 获取spu销售属性集合
+     */
+    List<SpuSaleAttr> getSpuSaleAttrList(String spuId);
+
+    /**
+     * description: 保存skuInfo数据
+     */
+    void saveSkuInfo(SkuInfo skuInfo);
 
 }
