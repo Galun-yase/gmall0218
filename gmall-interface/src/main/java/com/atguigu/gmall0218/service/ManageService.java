@@ -6,7 +6,9 @@ import com.atguigu.gmall0218.bean.BaseCatalog1;
 import com.atguigu.gmall0218.bean.BaseCatalog2;
 import com.atguigu.gmall0218.bean.BaseCatalog3;
 import com.atguigu.gmall0218.bean.BaseSaleAttr;
+import com.atguigu.gmall0218.bean.SkuImage;
 import com.atguigu.gmall0218.bean.SkuInfo;
+import com.atguigu.gmall0218.bean.SkuSaleAttrValue;
 import com.atguigu.gmall0218.bean.SpuImage;
 import com.atguigu.gmall0218.bean.SpuInfo;
 import com.atguigu.gmall0218.bean.SpuSaleAttr;
@@ -97,4 +99,23 @@ public interface ManageService {
      */
     void saveSkuInfo(SkuInfo skuInfo);
 
+    /**
+     * description: 根据skuId查询skuInfo
+     */
+    SkuInfo getSkuInfo(String skuId);
+
+    /**
+     * description: 根据skuId查询skuImage
+     */
+    List<SkuImage> getSkuImageBySkuId(String skuId);
+
+    /**
+     * description: 获取销售属性及值，并获取选中状态
+     */
+    List<SpuSaleAttr> getSpuSaleAttrListCheckBySku(SkuInfo skuInfo);
+
+    /**
+     * description: 根据spuId，获取sku销售属性的id，skuid
+     */
+    List<SkuSaleAttrValue> getSkuSaleAttrValueListBySpu(String spuId);
 }
