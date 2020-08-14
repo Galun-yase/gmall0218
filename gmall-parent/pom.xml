@@ -31,6 +31,7 @@
         <commons-lang3.version>3.7</commons-lang3.version>
         <mapper-starter.version>1.2.3</mapper-starter.version>
         <jedis.version>2.9.0</jedis.version>
+        <redisson.version>3.11.1</redisson.version>
         <jest.version>5.3.3</jest.version>
         <jna.version>4.5.1</jna.version>
         <beanUtils.version>1.9.3</beanUtils.version>
@@ -112,6 +113,12 @@
                 <groupId>redis.clients</groupId>
                 <artifactId>jedis</artifactId>
                 <version>${jedis.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.redisson</groupId>
+                <artifactId>redisson</artifactId>
+                <version>${redisson.version}</version>
             </dependency>
 
             <!-- https://mvnrepository.com/artifact/io.searchbox/jest -->

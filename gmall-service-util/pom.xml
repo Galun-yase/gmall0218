@@ -34,9 +34,15 @@
             <scope>runtime</scope>
         </dependency>
 
+        <!--redis依赖-->
         <dependency>
             <groupId>redis.clients</groupId>
             <artifactId>jedis</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.redisson</groupId>
+            <artifactId>redisson</artifactId>
         </dependency>
 
     </dependencies>
