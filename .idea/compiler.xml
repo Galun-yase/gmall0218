@@ -10,12 +10,13 @@
         <module name="gmall-common-util" />
         <module name="fastdfs-client-java" />
         <module name="gmall-manage-web" />
-        <module name="gmall-item-web" />
         <module name="gmall-bean" />
+        <module name="gmall-web-util" />
         <module name="gmall-manage-service" />
         <module name="gmall-user-manage" />
         <module name="gmall-interface" />
-        <module name="gmall-web-util" />
+        <module name="gmall-passport-web" />
+        <module name="gmall-item-web" />
         <module name="gmall-service-util" />
         <module name="gmall-order-web" />
       </profile>
@@ -30,6 +31,7 @@
       <module name="gmall-manage-web" target="1.8" />
       <module name="gmall-order-web" target="1.8" />
       <module name="gmall-parent" target="1.8" />
+      <module name="gmall-passport-web" target="1.8" />
       <module name="gmall-service-util" target="1.8" />
       <module name="gmall-user-manage" target="1.8" />
       <module name="gmall-web-util" target="1.8" />
@@ -41,6 +43,7 @@
       <module name="gmall-manage-service" options="" />
       <module name="gmall-manage-web" options="" />
       <module name="gmall-order-web" options="" />
+      <module name="gmall-passport-web" options="" />
       <module name="gmall-user-manage" options="" />
     </option>
   </component>

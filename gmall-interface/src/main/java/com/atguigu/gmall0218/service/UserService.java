@@ -9,6 +9,12 @@ public interface UserService {
 
     List<UserInfo> findAll();
 
-    public List<UserAddress> getUserAddressList(String userId);
+    List<UserAddress> getUserAddressList(String userId);
 
+    UserInfo login(UserInfo userInfo);
+
+    /**
+     * description:根据userid查询userinfo
+     */
+    UserInfo verify(String userId);
 }

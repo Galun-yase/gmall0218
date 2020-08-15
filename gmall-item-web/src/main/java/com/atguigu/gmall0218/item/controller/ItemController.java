@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSON;
 import com.atguigu.gmall0218.bean.SkuInfo;
 import com.atguigu.gmall0218.bean.SkuSaleAttrValue;
 import com.atguigu.gmall0218.bean.SpuSaleAttr;
+import com.atguigu.gmall0218.config.LoginRequire;
 import com.atguigu.gmall0218.service.ManageService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,6 +27,7 @@ public class ItemController {
     @Reference
     private ManageService manageService;
 
+    @LoginRequire(autoRedirect = true)
     @RequestMapping("{skuId}.html")
     public String item(@PathVariable String skuId, HttpServletRequest requestRequest) {
         SkuInfo skuInfo = manageService.getSkuInfo(skuId);

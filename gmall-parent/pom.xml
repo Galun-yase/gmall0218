@@ -39,6 +39,8 @@
         <dubbo-starter.version>1.0.10</dubbo-starter.version>
         <dubbo.version>2.6.0</dubbo.version>
         <zkclient.version>0.10</zkclient.version>
+
+        <jwt-version>0.9.0</jwt-version>
     </properties>
 
     <parent>
@@ -156,6 +158,12 @@
                 <groupId>com.gitee.reger</groupId>
                 <artifactId>spring-boot-starter-dubbo</artifactId>
                 <version>${dubbo-starter.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>io.jsonwebtoken</groupId>
+                <artifactId>jjwt</artifactId>
+                <version>${jwt-version}</version>
             </dependency>
 
         </dependencies>
