@@ -57,9 +57,9 @@
 				</li>
 			</ul>
 			<ul class="header_ul_right">
-				<li style="border: 0;"><a class="aa" href="http://passport.atguigu.com/index.html"><span
+				<li style="border: 0;"><a class="aa" href="http://localhost:8087/index.html"><span
 						th:if="${nickName}!=null" th:text="${nickName}">你好，请登录</span></a></li>
-				<li><a href="http://passport.atguigu.com/index.html" style="color: red;">免费注册</a> |</li>
+				<li><a href="http://localhost:8087/index.html" style="color: red;">免费注册</a> |</li>
 				<li><a class="aa" href="javascript:">我的订单</a> |</li>
 
 			</ul>
@@ -242,9 +242,9 @@
 
 				<div class="box-btns clear">
 					<div class="box-btns-one">
-						<form action="http://cart.gmall.com/addToCart" id="itemForm" method="post">
-							<input id="" name="num" type="text" value="1"/>
-							<input name="skuId" type="hidden"/>
+						<form action="http://localhost:8088/addToCart" id="itemForm" method="post">
+							<input id="" name="skuNum" type="text" value="1"/>
+							<input name="skuId" th:value="${skuInfo.id}" type="hidden"/>
 
 							<div class="box-btns-one1">
 

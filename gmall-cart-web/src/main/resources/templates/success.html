@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <title></title>
+    <script src="./js/jquery-3.1.1.min.js" type="text/javascript"></script>
+    <script src="./bootstrap/js/bootstrap.js" type="text/javascript"></script>
+    <script src="./js/swiper.min.js" type="text/javascript"></script>
+    <link href="./css/swiper.min.css" rel="stylesheet" type="text/css"/>
+    <link href="./bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css"/>
+    <link href="./css/success.css" rel="stylesheet" type="text/css"/>
+
+</head>
+
+<body>
+<!--头部-->
+<div class="alert-info">
+    <div class="hd_wrap_top">
+        <ul class="hd_wrap_left">
+            <li class="hd_home"><i class="glyphicon glyphicon-home"></i>
+                <a href="./javascript:;">京东首页</a>
+            </li>
+
+        </ul>
+
+        <ul class="hd_wrap_right">
+            <li class="forel">
+                <a class="link_login" href="./javascript:;">你好,请登录</a>&nbsp;
+                <a class="link_regist" href="./javascript:;">免费注册</a>
+            </li>
+            <li class="spacer"></li>
+
+            <li>
+                <a href="./javascript:;">我的订单</a>
+            </li>
+
+
+        </ul>
+
+    </div>
+</div>
+
+<div class="nav-tabs-justified">
+    <div class="nav_wrap">
+
+        <div class="nav_top">
+            <div class="nav_top_one">
+                <a href="./#"><img src="./img/logo1.jpg" style="height: 60px;width:180px;"/></a>
+            </div>
+            <div class="nav_top_two"><input type="text"/>
+                <button>搜索</button>
+            </div>
+
+
+        </div>
+
+    </div>
+</div>
+
+<div class="main">
+
+    <div class="success-wrap">
+        <div class="w" id="result">
+            <div class="m succeed-box">
+                <div class="mc success-cont">
+                    <div class="success-lcol">
+                        <div class="success-top"><b class="succ-icon"></b>
+                            <h3 class="ftx-02">商品已成功加入购物车</h3></div>
+                        <div class="p-item">
+                            <div class="p-img">
+                                <a href="./javascript:;" target="_blank"
+                                   th:href="'http://localhost:8084/'+${skuInfo.id}+'.html'"><img src="./img/shop1.jpg"
+                                                                                                 style="height: 60px;width:60px;"
+                                                                                                 th:src="${skuInfo.skuDefaultImg}"></a>
+                            </div>
+                            <div class="p-info">
+                                <div class="p-name">
+                                    <!--th:href="http://item.gmall.com/1.html"-->
+                                    <a th:href="'http://localhost:8084/'+${skuInfo.id}+'.html'"
+                                       th:text="${skuInfo.skuName}">TCL 55A950C 55英寸32核人工智能 HDR曲面超薄4K电视金属机身（枪色）</a>
+                                </div>
+                                <div class="p-extra"><span class="txt" th:text="${skuNum}">  数量：1</span></div>
+                            </div>
+                            <div class="clr"></div>
+                        </div>
+                    </div>
+                    <div class="success-btns success-btns-new">
+                        <div class="success-ad">
+                            <a href="./#none"></a>
+                        </div>
+                        <div class="clr"></div>
+                        <div class="bg_shop">
+                            <!--th:href="'http://item.gmall.com/'+${skuInfo.id}+'.html'"-->
+                            <a class="btn-tobback" th:href="'http://localhost:8084/'+${skuInfo.id}+'.html'">查看商品详情</a>
+                            <a class="btn-addtocart" href="http://localhost:8088/cartList" id="GotoShoppingCart"><b></b>去购物车结算</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+</body>
+<script src="./js/success.js" type="text/javascript"></script>
+
+</html>

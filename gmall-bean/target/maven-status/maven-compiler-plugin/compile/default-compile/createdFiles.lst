@@ -14,3 +14,4 @@ com\atguigu\gmall0218\bean\BaseAttrInfo.class
 com\atguigu\gmall0218\bean\SpuInfo.class
 com\atguigu\gmall0218\bean\SkuInfo.class
 com\atguigu\gmall0218\bean\BaseCatalog1.class
+com\atguigu\gmall0218\bean\CartInfo.class

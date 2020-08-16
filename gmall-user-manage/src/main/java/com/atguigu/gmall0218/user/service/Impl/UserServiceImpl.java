@@ -22,7 +22,7 @@ public class UserServiceImpl implements UserService {
     UserInfoMapper userInfoMapper;
     @Autowired
     UserAddressMapper userAddressMapper;
-    private final String userKey_prefix = "user";
+    private final String userKey_prefix = "user:";
     private final String userKey_suffix = ":info";
     public int userKey_timeOut = 60 * 60 * 24;
     @Autowired//自动装配容器中的Bean,在RedisConfig中@Bean加入的容器
