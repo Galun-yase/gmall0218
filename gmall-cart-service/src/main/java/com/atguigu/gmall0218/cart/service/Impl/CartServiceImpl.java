@@ -146,6 +146,66 @@ public class CartServiceImpl implements CartService {
         }
         // 最终将合并之后的数据返回！
         List<CartInfo> cartInfoList = loadCartCache(userId);
+
+        // 与未登录合并
+        for (CartInfo cartInfoDB : cartInfoList) {
+            for (CartInfo cartInfoCK : cartListCK) {
+                if (cartInfoDB.getSkuId().equals(cartInfoCK.getSkuId())) {
+                    if ("1".equals(cartInfoCK.getIsChecked())) {
+                        // 修改redis数据库的状态
+                        cartInfoDB.setIsChecked(cartInfoCK.getIsChecked());
+                        checkCart(cartInfoDB.getSkuId(), "1", userId);
+                    }
+                }
+            }
+        }
+
         return cartInfoList;
+    }
+
+    @Override//只修改redis中的状态，并维护一个新key，保存勾选的商品，以便去结算
+    public void checkCart(String skuId, String isChecked, String userId) {
+        /*
+            1.  获取Jedis 客户端
+            2.  获取购物车
+            3.  直接修改skuId 商品的勾选状态 isChecked
+            4.  写回购物车
+-------------------------------------------------------------------------
+            5.  新建一个购物车来存储勾选的商品！
+         */
+
+        Jedis jedis = redisUtil.getJedis();
+        // 定义购物车的key=user:userId:cart  用户key=user:userId:info
+        String cartKey = CartConst.USER_KEY_PREFIX + userId + CartConst.USER_CART_KEY_SUFFIX;
+
+        String cartInfoJson = jedis.hget(cartKey, skuId);
+        CartInfo cartInfo = JSON.parseObject(cartInfoJson, CartInfo.class);
+        cartInfo.setIsChecked(isChecked);
+        jedis.hset(cartKey, skuId, JSON.toJSONString(cartInfo));
+
+        // 新建一个购物车key user:userId:checked
+        String cartKeyChecked = CartConst.USER_KEY_PREFIX + userId + CartConst.USER_CHECKED_KEY_SUFFIX;
+        // isChecked=1 是勾选商品
+        if ("1".equals(isChecked)) {
+            jedis.hset(cartKeyChecked, skuId, JSON.toJSONString(cartInfo));
+        } else {
+            // 删除 取消勾选的商品
+            jedis.hdel(cartKeyChecked, skuId);
+        }
+        jedis.close();
+    }
+
+    @Override
+    public List<CartInfo> getCartCheckedList(String userId) {
+        String cartKeyChecked = CartConst.USER_KEY_PREFIX + userId + CartConst.USER_CHECKED_KEY_SUFFIX;
+        Jedis jedis = redisUtil.getJedis();
+        List<String> cartCheckedList = jedis.hvals(cartKeyChecked);
+        if (cartCheckedList == null || cartCheckedList.size() <= 0) return null;
+        List<CartInfo> cartInfoArrayList = new ArrayList<>();
+        for (String cartJson : cartCheckedList) {
+            CartInfo cartInfo = JSON.parseObject(cartJson, CartInfo.class);
+            cartInfoArrayList.add(cartInfo);
+        }
+        return cartInfoArrayList;
     }
 }

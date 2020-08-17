@@ -85,7 +85,9 @@
 
                     <div>
                         <ol>
-                            <li><input class="check" onchange="checkSku(this)" type="checkbox"/></li>
+                            <li><input class="check" onchange="checkSku(this)"
+                                       th:checked="(${cartInfo.isChecked}==1)?'true':'false'"
+                                       th:value="${cartInfo.skuId}" type="checkbox"/></li>
                             <li>
                                 <dt><img alt="" src="img\shop1.jpg" th:src="${cartInfo.imgUrl}"></dt>
                                 <!--onclick="toItem(1)"-->
@@ -213,17 +215,17 @@
 <script charset="utf-8" src="./js/index.js"></script>
 <script type="text/javascript">
 
-    function toTrade() {
-        window.location.href = "http://cart.gmall.com/toTrade";
+    function login() {
+        var s = encodeURIComponent("http://localhost:8088/cartList");
+        window.location.href = "http://localhost:8087/index?originUrl=" + s;
     }
 
     function toItem(skuId) {
-        window.location.href = "http://item.gmall.com/" + skuId + ".html";
+        window.location.href = "http://localhost:8084/" + skuId + ".html";
     }
 
-    function login() {
-        var s = encodeURIComponent("http://cart.gmall.com/cartList");
-        window.location.href = "http://passport.atguigu.com/index?originUrl=" + s;
+    function toTrade() {
+        window.location.href = "http://localhost:8088/toTrade";
     }
 
     function checkSku(chkbox) {
@@ -241,16 +243,6 @@
         });
 
     }
-
-
-    /*    //购物车结算固定定位
-        $(document).scroll(function(){
-            if($(window).scrollTop()>50){
-                $(".fix").hide();
-            }else{
-                $(".fix").show();
-            }
-        })*/
 
 
     //购物车顶端tab

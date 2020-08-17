@@ -21,4 +21,14 @@ public interface CartService {
      * description:把cookie中的购物车合并到数据库中
      */
     List<CartInfo> mergeToCartList(List<CartInfo> cartListCK, String userId);
+
+    /**
+     * description:登录状态下记录选中购物车，只修改redis中的状态，并维护一个新key，保存勾选的商品，以便去结算
+     */
+    void checkCart(String skuId, String isChecked, String userId);
+
+    /**
+     * description: 获取购物车中已选中的商品
+     */
+    List<CartInfo> getCartCheckedList(String userId);
 }

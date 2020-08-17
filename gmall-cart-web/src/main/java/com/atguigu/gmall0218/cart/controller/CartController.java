@@ -9,6 +9,7 @@ import com.atguigu.gmall0218.service.ManageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -56,7 +57,7 @@ public class CartController {
 
     @RequestMapping("cartList")
     @LoginRequire(autoRedirect = false)
-    public String cartList(HttpServletRequest request) {
+    public String cartList(HttpServletRequest request, HttpServletResponse response) {
         // 获取userId
         String userId = (String) request.getAttribute("userId");
         List<CartInfo> cartInfoList = null;
@@ -66,6 +67,8 @@ public class CartController {
             if (cartListCK != null && cartListCK.size() > 0) {
                 // 合并购物车
                 cartInfoList = cartService.mergeToCartList(cartListCK, userId);
+                //删除cookie中的购物车
+                cartCookieHandler.deleteCartCookie(request, response);
             } else {
                 // 登录状态下查询购物车
                 cartInfoList = cartService.getCartList(userId);
@@ -80,5 +83,32 @@ public class CartController {
         return "cartList";
     }
 
+    @RequestMapping("checkCart")
+    @ResponseBody
+    @LoginRequire(autoRedirect = false)
+    public void checkCart(HttpServletRequest request, HttpServletResponse response) {
+        String skuId = request.getParameter("skuId");
+        String isChecked = request.getParameter("isChecked");
+        String userId = (String) request.getAttribute("userId");
+
+        if (userId != null) {//登录状态下
+            cartService.checkCart(skuId, isChecked, userId);
+        } else {//未登录状态下
+            cartCookieHandler.checkCart(request, response, skuId, isChecked);
+        }
+
+    }
+
+    @RequestMapping("toTrade")
+    @LoginRequire(autoRedirect = true)
+    public String toTrade(HttpServletRequest request, HttpServletResponse response) {
+        String userId = (String) request.getAttribute("userId");
+        List<CartInfo> cartCookieList = cartCookieHandler.getCartList(request);
+        if (cartCookieList != null && cartCookieList.size() > 0) {
+            cartService.mergeToCartList(cartCookieList, userId);//结算的时候，把cookie中的和用户下的选中合并
+            cartCookieHandler.deleteCartCookie(request, response);
+        }
+        return "redirect://localhost:8085/trade";
+    }
 
 }

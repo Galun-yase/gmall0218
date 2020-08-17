@@ -7,15 +7,16 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="gmall-order-web" />
         <module name="gmall-web-util" />
         <module name="gmall-bean" />
         <module name="gmall-common-util" />
+        <module name="gmall-order-service" />
         <module name="gmall-manage-web" />
+        <module name="gmall-manage-service" />
         <module name="gmall-user-manage" />
         <module name="fastdfs-client-java" />
         <module name="gmall-cart-service" />
-        <module name="gmall-manage-service" />
+        <module name="gmall-order-web" />
         <module name="gmall-passport-web" />
         <module name="gmall-service-util" />
         <module name="gmall-cart-web" />
@@ -33,6 +34,7 @@
       <module name="gmall-item-web" target="1.8" />
       <module name="gmall-manage-service" target="1.8" />
       <module name="gmall-manage-web" target="1.8" />
+      <module name="gmall-order-service" target="1.8" />
       <module name="gmall-order-web" target="1.8" />
       <module name="gmall-parent" target="1.8" />
       <module name="gmall-passport-web" target="1.8" />
@@ -48,6 +50,7 @@
       <module name="gmall-item-web" options="" />
       <module name="gmall-manage-service" options="" />
       <module name="gmall-manage-web" options="" />
+      <module name="gmall-order-service" options="" />
       <module name="gmall-order-web" options="" />
       <module name="gmall-passport-web" options="" />
       <module name="gmall-user-manage" options="" />
