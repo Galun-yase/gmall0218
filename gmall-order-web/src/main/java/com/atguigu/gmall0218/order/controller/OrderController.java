@@ -5,9 +5,11 @@ import com.alibaba.dubbo.config.annotation.Reference;
 import com.atguigu.gmall0218.bean.CartInfo;
 import com.atguigu.gmall0218.bean.OrderDetail;
 import com.atguigu.gmall0218.bean.OrderInfo;
+import com.atguigu.gmall0218.bean.SkuInfo;
 import com.atguigu.gmall0218.bean.UserAddress;
 import com.atguigu.gmall0218.config.LoginRequire;
 import com.atguigu.gmall0218.service.CartService;
+import com.atguigu.gmall0218.service.ManageService;
 import com.atguigu.gmall0218.service.OrderService;
 import com.atguigu.gmall0218.service.UserService;
 import org.springframework.stereotype.Controller;
@@ -26,10 +28,12 @@ public class OrderController {
     private CartService cartService;
     @Reference
     private OrderService orderService;
+    @Reference
+    private ManageService manageService;
 
 
     @RequestMapping("trade")
-    @LoginRequire
+    //@LoginRequire
     public String trade(HttpServletRequest request) {
         String userId = (String) request.getAttribute("userId");
 
@@ -90,13 +94,32 @@ public class OrderController {
             return "tradeFail";
         }
 
+        // 验证库存！ 验证实时价格
+        List<OrderDetail> orderDetailList = orderInfo.getOrderDetailList();
+        for (OrderDetail orderDetail : orderDetailList) {
+            boolean flag = orderService.checkStock(orderDetail.getSkuId(), orderDetail.getSkuNum());
+            if (!flag) {
+                request.setAttribute("errMsg", orderDetail.getSkuName() + "商品库存不足！");
+                return "tradeFail";
+            }
+            // 获取skuInfo 对象b
+            SkuInfo skuInfo = manageService.getSkuInfo(orderDetail.getSkuId());
+            //
+            int res = skuInfo.getPrice().compareTo(orderDetail.getOrderPrice());
+            if (res != 0) {
+                request.setAttribute("errMsg", orderDetail.getSkuName() + "价格不匹配");
+                cartService.loadCartCache(userId);
+                return "tradeFail";
+            }
+        }
+
         // 调用服务层
         String orderId = orderService.saveOrder(orderInfo);
 
         // 删除流水号
         orderService.delTradeCode(userId);
         // 支付
-        return "redirect://payment.gmall.com/index?orderId=" + orderId;
+        return "redirect://localhost:8091/index?orderId=" + orderId;
     }
 
 }

@@ -19,5 +19,6 @@ com\atguigu\gmall0218\bean\SpuInfo.class
 com\atguigu\gmall0218\bean\enums\PaymentStatus.class
 com\atguigu\gmall0218\bean\SkuInfo.class
 com\atguigu\gmall0218\bean\BaseCatalog1.class
+com\atguigu\gmall0218\bean\PaymentInfo.class
 com\atguigu\gmall0218\bean\CartInfo.class
 com\atguigu\gmall0218\bean\enums\OrderStatus.class

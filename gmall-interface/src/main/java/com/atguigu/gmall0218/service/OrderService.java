@@ -30,4 +30,14 @@ public interface OrderService {
      * description: 删除缓存中的流水号
      */
     void delTradeCode(String userId);
+
+    /**
+     * description: 验证库存
+     */
+    boolean checkStock(String skuId, Integer skuNum);
+
+    /**
+     * description: 根据订单id获取订单信息
+     */
+    OrderInfo getOrderInfo(String orderId);
 }

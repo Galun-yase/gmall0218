@@ -18,6 +18,11 @@ public interface CartService {
     List<CartInfo> getCartList(String userId);
 
     /**
+     * description:根据userId 查询购物车，并放入redis
+     */
+    List<CartInfo> loadCartCache(String userId);
+
+    /**
      * description:把cookie中的购物车合并到数据库中
      */
     List<CartInfo> mergeToCartList(List<CartInfo> cartListCK, String userId);

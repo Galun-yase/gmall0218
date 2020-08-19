@@ -7,6 +7,7 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="gware-manage" />
         <module name="gmall-web-util" />
         <module name="gmall-bean" />
         <module name="gmall-common-util" />
@@ -17,6 +18,7 @@
         <module name="fastdfs-client-java" />
         <module name="gmall-cart-service" />
         <module name="gmall-order-web" />
+        <module name="gmall-payment" />
         <module name="gmall-passport-web" />
         <module name="gmall-service-util" />
         <module name="gmall-cart-web" />
@@ -38,9 +40,11 @@
       <module name="gmall-order-web" target="1.8" />
       <module name="gmall-parent" target="1.8" />
       <module name="gmall-passport-web" target="1.8" />
+      <module name="gmall-payment" target="1.8" />
       <module name="gmall-service-util" target="1.8" />
       <module name="gmall-user-manage" target="1.8" />
       <module name="gmall-web-util" target="1.8" />
+      <module name="gware-manage" target="1.8" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
@@ -53,6 +57,7 @@
       <module name="gmall-order-service" options="" />
       <module name="gmall-order-web" options="" />
       <module name="gmall-passport-web" options="" />
+      <module name="gmall-payment" options="" />
       <module name="gmall-user-manage" options="" />
     </option>
   </component>

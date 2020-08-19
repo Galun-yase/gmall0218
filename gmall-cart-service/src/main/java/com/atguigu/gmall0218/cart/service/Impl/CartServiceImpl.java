@@ -96,7 +96,8 @@ public class CartServiceImpl implements CartService {
     }
 
     // 根据userId 查询购物车，并放入redis
-    private List<CartInfo> loadCartCache(String userId) {
+    @Override
+    public List<CartInfo> loadCartCache(String userId) {
         // cartInfo , skuInfo 从这两张表中查询！查询不到实时价格！
         List<CartInfo> cartInfoList = cartInfoMapper.selectCartListWithCurPrice(userId);
         if (cartInfoList == null || cartInfoList.size() == 0) {

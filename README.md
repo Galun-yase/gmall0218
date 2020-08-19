@@ -16,4 +16,6 @@
 8087 passport-web
 8088 cart-web
 8089 cart-service
+8090 gware-manage
+8091 payment
 

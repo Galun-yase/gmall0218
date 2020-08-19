@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title></title>
+    <link href="/css/style.css" rel="stylesheet"/>
+    <script charset="utf-8" src="/js/jquery-3.1.1.min.js"></script>
+    <script src="/umd/qrious.js"></script>
+</head>
+<body>
+<div class="One_Jdbox">
+    <div class="Jdbox_head">
+        <img alt="" src="/img/logo1.jpg">
+        <ul>
+            <li><span th:text="'你好,'+ ${nickName}"></span><span>退出</span></li>
+            <li>我的订单</li>
+            <li>支付帮助</li>
+        </ul>
+    </div>
+    <div class="Jdbox_BuySuc">
+        <dl>
+            <dd>
+                <span th:text="'订单提交成功，请尽快付款！订单号：'+${orderId}"> </span>
+                <span th:text="'应付金额'+${totalAmount}+'元'"> </span>
+            </dd>
+            <dd>
+                <span>推荐使用</span>
+                <span>扫码支付请您在<font>24小时</font>内完成支付，否则订单会被自动取消(库存紧订单请参见详情页时限)</span>
+                <span>订单详细</span>
+            </dd>
+        </dl>
+    </div>
+    <div class="Jd_Con">
+
+        <div class="Jd_main">
+            <ul>
+                <li>
+              <span>
+                <input name="pay" type="radio" value="alipay"/>
+                <img alt="" src="/img/alipay.jpg">支付宝
+              </span>
+                </li>
+                <li>
+              <span>
+                <input id="weixin" name="pay" type="radio" value="wx"/>
+                <img alt="" src="/img/weixin.png">微信支付
+              </span>
+                    <br/>
+                    <!--微信支付二维码-->
+                    <img id="qrious">
+
+                </li>
+                <li>
+                </li>
+                <li>
+                </li>
+                <li>
+                    <button id="paymentButton">立即支付</button>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+
+</div>
+
+<form id="paymentForm" method="post">
+
+    <input name="orderId" th:value="${orderId}" type="hidden">
+</form>
+
+
+</body>
+<script type="text/javascript">
+    $(function () {
+        $("#paymentButton").click(function () {
+            $("#paymentForm").attr("action", "/" + $("input[type='radio']:checked").val() + "/submit");
+            $("#paymentForm").submit();
+            console.log($("#paymentForm").html());
+            console.log($("#paymentForm").attr("action"));
+        })
+
+    })
+
+    //立即支付按钮效果
+    $("#paymentButton").mouseover(function () {
+        $(this).css({"cursor": "pointer", "background": "#FF5350"})
+    }).mouseout(function () {
+        $(this).css("background", "#FC6E6C")
+    })
+
+    /*点击微信支付生成二维码*/
+    $("#weixin").click(function () {
+        $.post("wx/submit", function (data) {
+            var qr = window.qr = new QRious({
+                element: document.getElementById('qrious'),
+                size: 250,
+                value: data.code_url
+            })
+        })
+    })
+</script>
+</html>

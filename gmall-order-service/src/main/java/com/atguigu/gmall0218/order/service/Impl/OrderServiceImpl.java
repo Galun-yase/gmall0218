@@ -9,6 +9,7 @@ import com.atguigu.gmall0218.config.RedisUtil;
 import com.atguigu.gmall0218.order.mapper.OrderDetailMapper;
 import com.atguigu.gmall0218.order.mapper.OrderInfoMapper;
 import com.atguigu.gmall0218.service.OrderService;
+import com.atguigu.gmall0218.util.HttpClientUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import redis.clients.jedis.Jedis;
@@ -106,5 +107,17 @@ public class OrderServiceImpl implements OrderService {
         jedis.del(tradeNoKey);
         jedis.close();
 
+    }
+
+    @Override
+    public boolean checkStock(String skuId, Integer skuNum) {
+        String result = HttpClientUtil.doGet("http://localhost:8090/hasStock?skuId=" + skuId + "&num=" + skuNum);
+        return "1".equals(result);
+    }
+
+    @Override
+    public OrderInfo getOrderInfo(String orderId) {
+        OrderInfo orderInfo = orderInfoMapper.selectByPrimaryKey(orderId);
+        return orderInfo;
     }
 }
