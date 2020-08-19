@@ -101,6 +101,9 @@ public class PaymentController {
             e.printStackTrace();
         }
         response.setContentType("text/html;charset=UTF-8");
+
+        //todo 仅标记   15秒执行一次，总共执行三次
+        paymentService.sendDelayPaymentResult(paymentInfo.getOutTradeNo(), 15, 3);
         return form;
     }
 
@@ -190,7 +193,7 @@ public class PaymentController {
 
 
     /**
-     * 退款
+     * 发送支付成功消息
      */
     @RequestMapping("sendPaymentResult")
     @ResponseBody
@@ -199,4 +202,17 @@ public class PaymentController {
         return "send payment result";
     }
 
+    /**
+     * 查询订单信息
+     */
+    @RequestMapping("queryPaymentResult")
+    @ResponseBody
+    public String queryPaymentResult(HttpServletRequest request) {
+        String orderId = request.getParameter("orderId");
+        PaymentInfo paymentInfo = new PaymentInfo();
+        paymentInfo.setOrderId(orderId);
+
+        boolean flag = paymentService.checkPayment(paymentInfo);
+        return "" + flag;
+    }
 }

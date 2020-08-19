@@ -1,5 +1,6 @@
 package com.atguigu.gmall0218.order.service.Impl;
 
+import com.alibaba.dubbo.config.annotation.Reference;
 import com.alibaba.dubbo.config.annotation.Service;
 import com.alibaba.fastjson.JSON;
 import com.atguigu.gmall0218.bean.OrderDetail;
@@ -11,11 +12,14 @@ import com.atguigu.gmall0218.config.RedisUtil;
 import com.atguigu.gmall0218.order.mapper.OrderDetailMapper;
 import com.atguigu.gmall0218.order.mapper.OrderInfoMapper;
 import com.atguigu.gmall0218.service.OrderService;
+import com.atguigu.gmall0218.service.PaymentService;
 import com.atguigu.gmall0218.util.HttpClientUtil;
 import org.apache.activemq.command.ActiveMQTextMessage;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.transaction.annotation.Transactional;
 import redis.clients.jedis.Jedis;
+import tk.mybatis.mapper.entity.Example;
 
 import javax.jms.Connection;
 import javax.jms.JMSException;
@@ -45,6 +49,10 @@ public class OrderServiceImpl implements OrderService {
     private RedisUtil redisUtil;
     @Autowired
     private ActiveMQUtil activeMQUtil;
+
+    @Reference
+    private PaymentService paymentService;
+
 
     @Override
     @Transactional
@@ -226,5 +234,23 @@ public class OrderServiceImpl implements OrderService {
         map.put("details", arrayList);
 
         return map;
+    }
+
+    @Override
+    public List<OrderInfo> getExpiredOrderList() {
+        // 当前系统时间>过期时间 and 当前状态是未支付！
+        Example example = new Example(OrderInfo.class);
+        example.createCriteria().andEqualTo("processStatus", ProcessStatus.UNPAID).andLessThan("expireTime", new Date());
+        List<OrderInfo> orderInfoList = orderInfoMapper.selectByExample(example);
+        return orderInfoList;
+    }
+
+    @Override
+    @Async//该方法多线程异步实现
+    public void execExpiredOrder(OrderInfo orderInfo) {
+        // 将订单状态改为关闭
+        updateOrderStatus(orderInfo.getId(), ProcessStatus.CLOSED);
+        // 关闭paymentInfo
+        paymentService.closePayment(orderInfo.getId());
     }
 }

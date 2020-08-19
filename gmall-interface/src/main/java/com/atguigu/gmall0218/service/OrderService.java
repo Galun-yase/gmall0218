@@ -3,6 +3,8 @@ package com.atguigu.gmall0218.service;
 import com.atguigu.gmall0218.bean.OrderInfo;
 import com.atguigu.gmall0218.bean.enums.ProcessStatus;
 
+import java.util.List;
+
 /**
  * @author 任青成
  * @date 2020/8/17 16:06
@@ -51,4 +53,14 @@ public interface OrderService {
      * description: 给仓储发送消息
      */
     void sendOrderStatus(String orderId);
+
+    /**
+     * description: 查询过期订单列表
+     */
+    List<OrderInfo> getExpiredOrderList();
+
+    /**
+     * description: 处理过期订单
+     */
+    void execExpiredOrder(OrderInfo orderInfo);
 }

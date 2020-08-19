@@ -32,4 +32,19 @@ public interface PaymentService {
      * description: 发送支付消息给订单模块
      */
     void sendPaymentResult(PaymentInfo paymentInfo, String result);
+
+    /**
+     * description: 根据orderId向支付宝查询订单状态
+     */
+    boolean checkPayment(PaymentInfo paymentInfoQuery);
+
+    /**
+     * description: 发送延迟队列
+     */
+    void sendDelayPaymentResult(String outTradeNo, int delaySec, int checkCount);
+
+    /**
+     * description: 关闭支付信息
+     */
+    void closePayment(String orderId);
 }
