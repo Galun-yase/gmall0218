@@ -27,4 +27,9 @@ public interface PaymentService {
      * description: 退款
      */
     boolean refund(String orderId);
+
+    /**
+     * description: 发送支付消息给订单模块
+     */
+    void sendPaymentResult(PaymentInfo paymentInfo, String result);
 }

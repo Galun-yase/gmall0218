@@ -9,12 +9,19 @@ import com.alipay.api.request.AlipayTradeRefundRequest;
 import com.alipay.api.response.AlipayTradeRefundResponse;
 import com.atguigu.gmall0218.bean.OrderInfo;
 import com.atguigu.gmall0218.bean.PaymentInfo;
+import com.atguigu.gmall0218.config.ActiveMQUtil;
 import com.atguigu.gmall0218.payment.mapper.PaymentInfoMapper;
 import com.atguigu.gmall0218.service.OrderService;
 import com.atguigu.gmall0218.service.PaymentService;
+import org.apache.activemq.command.ActiveMQMapMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import tk.mybatis.mapper.entity.Example;
 
+import javax.jms.Connection;
+import javax.jms.JMSException;
+import javax.jms.MessageProducer;
+import javax.jms.Queue;
+import javax.jms.Session;
 import java.util.HashMap;
 
 /**
@@ -29,6 +36,8 @@ public class PaymentServiceImpl implements PaymentService {
     private AlipayClient alipayClient;
     @Reference
     private OrderService orderService;
+    @Autowired
+    private ActiveMQUtil activeMQUtil;
 
 
     @Override
@@ -78,6 +87,33 @@ public class PaymentServiceImpl implements PaymentService {
         } else {
             System.out.println("调用失败");
             return false;
+        }
+    }
+
+    @Override
+    public void sendPaymentResult(PaymentInfo paymentInfo, String result) {
+        Connection connection = activeMQUtil.getConnection();
+
+        try {
+            connection.start();
+            Session session = connection.createSession(true, Session.SESSION_TRANSACTED);
+            Queue payment_result_queue = session.createQueue("PAYMENT_RESULT_QUEUE");
+            MessageProducer producer = session.createProducer(payment_result_queue);
+
+            ActiveMQMapMessage activeMQMapMessage = new ActiveMQMapMessage();
+            activeMQMapMessage.setString("orderId", paymentInfo.getOrderId());
+            activeMQMapMessage.setString("result", result);
+
+            producer.send(activeMQMapMessage);
+
+            session.commit();
+
+            producer.close();
+            session.commit();
+            connection.close();
+
+        } catch (JMSException e) {
+            e.printStackTrace();
         }
     }
 }

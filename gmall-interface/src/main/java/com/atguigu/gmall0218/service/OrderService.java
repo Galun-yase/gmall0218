@@ -1,6 +1,7 @@
 package com.atguigu.gmall0218.service;
 
 import com.atguigu.gmall0218.bean.OrderInfo;
+import com.atguigu.gmall0218.bean.enums.ProcessStatus;
 
 /**
  * @author 任青成
@@ -40,4 +41,14 @@ public interface OrderService {
      * description: 根据订单id获取订单信息
      */
     OrderInfo getOrderInfo(String orderId);
+
+    /**
+     * description: 更新订单状态
+     */
+    void updateOrderStatus(String orderId, ProcessStatus processStatus);
+
+    /**
+     * description: 给仓储发送消息
+     */
+    void sendOrderStatus(String orderId);
 }

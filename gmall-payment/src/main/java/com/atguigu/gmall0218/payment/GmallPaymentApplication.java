@@ -8,7 +8,7 @@ import tk.mybatis.spring.annotation.MapperScan;
 
 @EnableDubbo
 @SpringBootApplication
-@ComponentScan(basePackages = "com.atguigu.gmall0218")
+@ComponentScan(basePackages = "com.atguigu.gmall0218")//扫了组件 扫了mq
 @MapperScan(basePackages = "com.atguigu.gmall0218.payment.mapper")
 public class GmallPaymentApplication {
 

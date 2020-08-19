@@ -163,6 +163,10 @@ public class PaymentController {
                 paymentInfoUPD.setCallbackTime(new Date());
 
                 paymentService.updatePaymentInfo(out_trade_no, paymentInfoUPD);
+
+                //支付完成 异步回调 发送消息给订单模块 orderId result
+                paymentService.sendPaymentResult(paymentInfo, "success");
+
                 return "success";
             }
         } else {
@@ -182,6 +186,17 @@ public class PaymentController {
         // 退款接口
         boolean result = paymentService.refund(orderId);
         return "" + result;
+    }
+
+
+    /**
+     * 退款
+     */
+    @RequestMapping("sendPaymentResult")
+    @ResponseBody
+    public String sendPaymentResult(PaymentInfo paymentInfo, @RequestParam("result") String result) {
+        paymentService.sendPaymentResult(paymentInfo, result);
+        return "send payment result";
     }
 
 }
