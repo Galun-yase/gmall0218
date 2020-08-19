@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.atguigu.gware.controller.GwareManageApplicationTests" time="0.095" tests="1" errors="0" skipped="0" failures="0">
+<testsuite name="com.atguigu.gware.controller.GwareManageApplicationTests" time="0.083" tests="1" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="D:\JDK8\jre\bin"/>
@@ -21,7 +21,7 @@
     <property name="java.awt.graphicsenv" value="sun.awt.Win32GraphicsEnvironment"/>
     <property name="java.endorsed.dirs" value="D:\JDK8\jre\lib\endorsed"/>
     <property name="os.arch" value="amd64"/>
-    <property name="visualvm.id" value="446446639167100"/>
+    <property name="visualvm.id" value="462621547127000"/>
     <property name="java.io.tmpdir" value="C:\Users\asusl\AppData\Local\Temp\"/>
     <property name="line.separator" value="&#10;"/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
@@ -64,5 +64,5 @@
     <property name="sun.desktop" value="windows"/>
     <property name="sun.cpu.isalist" value="amd64"/>
   </properties>
-  <testcase name="contextLoads" classname="com.atguigu.gware.controller.GwareManageApplicationTests" time="0.095"/>
+  <testcase name="contextLoads" classname="com.atguigu.gware.controller.GwareManageApplicationTests" time="0.083"/>
 </testsuite>
