@@ -37,7 +37,7 @@
         <beanUtils.version>1.9.3</beanUtils.version>
 
         <dubbo-starter.version>1.0.10</dubbo-starter.version>
-        <dubbo.version>2.6.0</dubbo.version>
+        <dubbo.version>2.6.12</dubbo.version>
         <zkclient.version>0.10</zkclient.version>
 
         <jwt-version>0.9.0</jwt-version>
